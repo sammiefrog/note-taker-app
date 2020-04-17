@@ -2,6 +2,7 @@
 const express = require("express");
 const path = require("path");
 const dbjson = require("./db/db.json");
+const fs = require("fs");
 
 // Tells node that we are creating an "express" server
 const app = express();
@@ -32,13 +33,12 @@ app.get("/notes", (req, res) => {
 
 //get the notes
 app.get("/api/notes", (req, res) => {
-    res.readFile(path.join(__dirname, "db", "db.json"));
     return res.json(dbjson);
 });
 
 //post the notes
 app.post("/api/notes", (req, res) => {
-    notes.push(newNote);
+    dbjson.push(req.body);
     res.json(true);
 });
 
