@@ -1,8 +1,14 @@
-//requiring express
+//requirements
 const express = require("express");
 const path = require("path");
-const dbjson = require("./db/db.json");
 const fs = require("fs");
+const dbjson = require("./db/db.json");
+const uuid = require('uuid');
+
+console.log(uuid.v4());
+let id = 0;
+// var notePage = fs.readFileSync("db.json");
+// var allTheNotes = JSON.parse(notePage);
 
 // Tells node that we are creating an "express" server
 const app = express();
@@ -38,7 +44,21 @@ app.get("/api/notes", (req, res) => {
 
 //post the notes
 app.post("/api/notes", (req, res) => {
-    dbjson.push(req.body);
+    // var note = req.body; 
+    // id = content.length;
+    // note.id = `${id}`;
+
+    let note = req.body;
+    id = uuid.v4(note);
+    note.id = `${id}`
+
+    notes.push(note.id);
+
+    fs.writeFile("db.json", notes, (err) => {
+        if (err) throw err;
+        console.log("success");
+    });
+
     res.json(true);
 });
 
