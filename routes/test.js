@@ -38,10 +38,5 @@ const theNotes = app => {
     //nothing yet
     });
 };
-// fs.writeFileSync("../db/db.json", JSON.stringify(note), (err) => {
-//     if (err) throw err;
-//     console.log("success");
-// });
-// console.log(notes);
-// res.json(note);
+
 module.exports = theNotes;

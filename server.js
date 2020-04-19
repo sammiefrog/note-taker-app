@@ -6,7 +6,7 @@ const express = require("express");
 // const uuid = require('uuid');
 
 // console.log(uuid.v4());
-let id = 0;
+// let id = 0;
 // var notePage = fs.readFileSync("db.json");
 // var allTheNotes = JSON.parse(notePage);
 
@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-let notes = [];
+// let notes = [];
 
 //routes
 require("./routes/apiRoutes")(app);
