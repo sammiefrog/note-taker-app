@@ -1,7 +1,7 @@
 const fs = require("fs");
 const util = require("util");
 const uuidv4 = require("uuid/v4");
-const jsonData = require("../db/db.json");
+let jsonData = require("../db/db.json");
 
 const writeFileAsync = util.promisify(fs.writeFile);
 
@@ -30,12 +30,12 @@ const theNotes = app => {
     app.delete("/api/notes/:id", (req, res) => {
         //nothing yet
         console.log(req.params.id)
-        const keptNotes = jsonData.filter(note => note.id !== req.params.id);
+        let keptNotes = jsonData.filter(note => note.id !== req.params.id);
         jsonData = keptNotes;
 
         writeFileAsync("./db/db.json", JSON.stringify(jsonData))
             .then(() => {
-                res.json(note);
+                res.json(jsonData);
             }).catch((err) => console.log(err));
     });
 };
