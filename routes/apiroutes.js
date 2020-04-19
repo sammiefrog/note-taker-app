@@ -1,47 +1,43 @@
 const fs = require("fs");
 const util = require("util");
-const uuid = require("uuid");
-const readFileAsync = util.promisify(fs.readFile);
+const uuidv4 = require("uuid/v4");
+const jsonData = require("../db/db.json");
+
 const writeFileAsync = util.promisify(fs.writeFile);
 
 const theNotes = app => {
-//get the notes when clicked
+    //get the notes when clicked
     app.get("/api/notes", (req, res) => {
-
-        readFileAsync("./db/db.json", "utf8").then(data => {
-            const allTheNotes = JSON.parse(data);
-            console.log(allTheNotes);
-            res.json(allTheNotes);
-        }).catch(err => console.log(err));
-
+        res.json(jsonData);
     });
-//post the notes
+    //post the notes
     app.post("/api/notes", (req, res) => {
-        let note = req.body; 
-        let id = uuid.v4;
-        note.id = `${id}`;
 
-        readFileAsync("./db/db.json", "utf8").then(data => {
-            const allTheNotes = JSON.parse(data);
-            allTheNotes.push(note);
+        let note = req.body;
+        let id = uuidv4();
+        note.id = id;
 
-            writeFileAsync("./db/db.json", JSON.stringify(note)).then(() => {
+        jsonData.push(note);
+        // now write back to the file
+        writeFileAsync("./db/db.json", JSON.stringify(jsonData))
+            .then(() => {
                 res.json(note);
-            }).catch(err=> console.log(err));
-
-        }).catch(err => console.log(err));
-
+            })
+            .catch((err) => console.log(err));
     });
-    
+
     //delete the notes
     app.delete("/api/notes/:id", (req, res) => {
-    //nothing yet
+        //nothing yet
+        console.log(req.params.id)
+        const keptNotes = jsonData.filter(note => note.id !== req.params.id);
+        jsonData = keptNotes;
+
+        writeFileAsync("./db/db.json", JSON.stringify(jsonData))
+            .then(() => {
+                res.json(note);
+            }).catch((err) => console.log(err));
     });
 };
-// fs.writeFileSync("../db/db.json", JSON.stringify(note), (err) => {
-//     if (err) throw err;
-//     console.log("success");
-// });
-// console.log(notes);
-// res.json(note);
+
 module.exports = theNotes;
