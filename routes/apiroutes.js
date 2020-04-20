@@ -29,7 +29,6 @@ const theNotes = app => {
     //delete the notes
     app.delete("/api/notes/:id", (req, res) => {
         //nothing yet
-        console.log(req.params.id)
         let keptNotes = jsonData.filter(note => note.id !== req.params.id);
         jsonData = keptNotes;
 
