@@ -1,5 +1,6 @@
 //requiring express
 const express = require("express");
+const cfonts = require("cfonts");
 
 // Tells node that we are creating an "express" server
 const app = express();
@@ -21,4 +22,19 @@ require("./routes/htmlroutes")(app);
 //listening
 app.listen(PORT, () => {
   console.log("App listening on PORT " + PORT);
+});
+
+cfonts.say("Hello, I love A+'s", {
+  font: "chrome",
+  align: "center",
+  colors: ["green", "magenta", "blue"],
+  background: "transparent",
+  letterSpacing: 1,
+  lineHeight: 1,
+  space: true,
+  maxLength: "0",
+  gradient: true,
+  independentGradient: false,
+  transitionGradient: false,
+  env: "node",
 });

@@ -10,7 +10,9 @@
   "author": "sammiefrog",
   "license": "ISC",
   "dependencies": {
+    "cfonts": "^2.8.1",
     "express": "^4.16.4",
+    "install": "^0.13.0",
     "uuid": "^7.0.3"
   }
 }
